@@ -1,32 +1,24 @@
 package com.springsakila.inventory.domain.entities;
 
-import java.io.Serial;
 import java.io.Serializable;
 import jakarta.persistence.*;
 
 /**
- * The primary key class for the film_actor database table.
+ * The primary key class for the film_category database table.
  *
  */
 @Embeddable
-public class FilmActorPK implements Serializable {
+public class FilmCategoryPK implements Serializable {
     //default serial version id, required for serializable classes.
-    @Serial
     private static final long serialVersionUID = 1L;
-
-    @Column(name="actor_id", insertable=false, updatable=false, unique=true, nullable=false)
-    private int actorId;
 
     @Column(name="film_id", insertable=false, updatable=false, unique=true, nullable=false)
     private int filmId;
 
-    public FilmActorPK() {
-    }
-    public int getActorId() {
-        return this.actorId;
-    }
-    public void setActorId(int actorId) {
-        this.actorId = actorId;
+    @Column(name="category_id", insertable=false, updatable=false, unique=true, nullable=false)
+    private byte categoryId;
+
+    public FilmCategoryPK() {
     }
     public int getFilmId() {
         return this.filmId;
@@ -34,25 +26,31 @@ public class FilmActorPK implements Serializable {
     public void setFilmId(int filmId) {
         this.filmId = filmId;
     }
+    public byte getCategoryId() {
+        return this.categoryId;
+    }
+    public void setCategoryId(byte categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public boolean equals(Object other) {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof FilmActorPK)) {
+        if (!(other instanceof FilmCategoryPK)) {
             return false;
         }
-        FilmActorPK castOther = (FilmActorPK)other;
+        FilmCategoryPK castOther = (FilmCategoryPK)other;
         return
-                (this.actorId == castOther.actorId)
-                        && (this.filmId == castOther.filmId);
+                (this.filmId == castOther.filmId)
+                        && (this.categoryId == castOther.categoryId);
     }
 
     public int hashCode() {
         final int prime = 31;
         int hash = 17;
-        hash = hash * prime + this.actorId;
         hash = hash * prime + this.filmId;
+        hash = hash * prime + ((int) this.categoryId);
 
         return hash;
     }

@@ -1,62 +1,69 @@
 package com.springsakila.inventory.domain.entities;
 
+import java.io.Serializable;
 import jakarta.persistence.*;
-
 import java.sql.Timestamp;
-import java.util.Objects;
 
+
+/**
+ * The persistent class for the film_actor database table.
+ *
+ */
 @Entity
-@jakarta.persistence.Table(name = "film_actor", schema = "sakila", catalog = "")
-@IdClass(com.springsakila.inventory.domain.entities.FilmActorPK.class)
-public class FilmActor {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @jakarta.persistence.Column(name = "actor_id")
-    private Object actorId;
+@Table(name="film_actor")
+@NamedQuery(name="FilmActor.findAll", query="SELECT f FROM FilmActor f")
+public class FilmActor implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    public Object getActorId() {
-        return actorId;
-    }
+    @EmbeddedId
+    private FilmActorPK id;
 
-    public void setActorId(Object actorId) {
-        this.actorId = actorId;
-    }
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @jakarta.persistence.Column(name = "film_id")
-    private Object filmId;
-
-    public Object getFilmId() {
-        return filmId;
-    }
-
-    public void setFilmId(Object filmId) {
-        this.filmId = filmId;
-    }
-
-    @Basic
-    @Column(name = "last_update")
+    @Column(name="last_update", nullable=false)
     private Timestamp lastUpdate;
 
+    //bi-directional many-to-one association to Actor
+    @ManyToOne
+    @JoinColumn(name="actor_id", nullable=false, insertable=false, updatable=false)
+    private Actor actor;
+
+    //bi-directional many-to-one association to Film
+    @ManyToOne
+    @JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
+    private Film film;
+
+    public FilmActor() {
+    }
+
+    public FilmActorPK getId() {
+        return this.id;
+    }
+
+    public void setId(FilmActorPK id) {
+        this.id = id;
+    }
+
     public Timestamp getLastUpdate() {
-        return lastUpdate;
+        return this.lastUpdate;
     }
 
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FilmActor filmActor = (FilmActor) o;
-        return Objects.equals(actorId, filmActor.actorId) && Objects.equals(filmId, filmActor.filmId) && Objects.equals(lastUpdate, filmActor.lastUpdate);
+    public Actor getActor() {
+        return this.actor;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(actorId, filmId, lastUpdate);
+    public void setActor(Actor actor) {
+        this.actor = actor;
     }
+
+    public Film getFilm() {
+        return this.film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
 }

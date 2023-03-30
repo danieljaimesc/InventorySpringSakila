@@ -1,59 +1,88 @@
 package com.springsakila.inventory.domain.entities;
 
+import java.io.Serial;
+import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
 
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.List;
 
+
+/**
+ * The persistent class for the category database table.
+ *
+ */
 @Entity
-public class Category {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @jakarta.persistence.Column(name = "category_id")
-    private Object categoryId;
+@Table(name="category")
+@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+public class Category implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    public Object getCategoryId() {
-        return categoryId;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="category_id", unique=true, nullable=false)
+    @Max(255)
+    private int categoryId;
+
+    @Column(name="last_update", insertable=false, updatable=false, nullable=false)
+    private Timestamp lastUpdate;
+
+    @Column(nullable=false, length=25)
+    private String name;
+
+    //bi-directional many-to-one association to FilmCategory
+    @OneToMany(mappedBy="category")
+    private List<FilmCategory> filmCategories;
+
+    public Category() {
     }
 
-    public void setCategoryId(Object categoryId) {
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
 
-    @Basic
-    @Column(name = "name")
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Basic
-    @Column(name = "last_update")
-    private Timestamp lastUpdate;
-
     public Timestamp getLastUpdate() {
-        return lastUpdate;
+        return this.lastUpdate;
     }
 
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(categoryId, category.categoryId) && Objects.equals(name, category.name) && Objects.equals(lastUpdate, category.lastUpdate);
+    public String getName() {
+        return this.name;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(categoryId, name, lastUpdate);
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public List<FilmCategory> getFilmCategories() {
+        return this.filmCategories;
+    }
+
+    public void setFilmCategories(List<FilmCategory> filmCategories) {
+        this.filmCategories = filmCategories;
+    }
+
+    public FilmCategory addFilmCategory(FilmCategory filmCategory) {
+        getFilmCategories().add(filmCategory);
+        filmCategory.setCategory(this);
+
+        return filmCategory;
+    }
+
+    public FilmCategory removeFilmCategory(FilmCategory filmCategory) {
+        getFilmCategories().remove(filmCategory);
+        filmCategory.setCategory(null);
+
+        return filmCategory;
+    }
+
 }
