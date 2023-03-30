@@ -1,6 +1,5 @@
 package com.springsakila.inventory.domain.entities;
 
-import com.springsakila.inventory.domain.core.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
