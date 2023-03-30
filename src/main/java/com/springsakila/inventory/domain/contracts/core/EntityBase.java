@@ -1,4 +1,4 @@
-package com.springsakila.inventory.domain.entities;
+package com.springsakila.inventory.domain.contracts.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Transient;
