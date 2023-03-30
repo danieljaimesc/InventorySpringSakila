@@ -2,6 +2,7 @@ package com.springsakila.inventory.domain.entities;
 
 import java.io.Serializable;
 
+import com.springsakila.inventory.domain.contracts.core.EntityBase;
 import com.springsakila.inventory.domain.entities.FilmActor;
 import com.springsakila.inventory.domain.entities.FilmCategory;
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="film")
 @NamedQuery(name="Film.findAll", query="SELECT f FROM Film f")
-public class Film implements Serializable {
+public class Film extends EntityBase<Film> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

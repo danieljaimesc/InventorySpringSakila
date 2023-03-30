@@ -1,5 +1,6 @@
 package com.springsakila.inventory.domain.entities;
 
+import com.springsakila.inventory.domain.contracts.core.EntityBase;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -13,7 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "film_category")
 @NamedQuery(name = "FilmCategory.findAll", query = "SELECT f FROM FilmCategory f")
-public class FilmCategory implements Serializable {
+public class FilmCategory extends EntityBase<FilmCategory> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

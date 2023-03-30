@@ -2,6 +2,8 @@ package com.springsakila.inventory.domain.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import com.springsakila.inventory.domain.contracts.core.EntityBase;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -14,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name="language")
 @NamedQuery(name="Language.findAll", query="SELECT l FROM Language l")
-public class Language implements Serializable {
+public class Language extends EntityBase<Language> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 

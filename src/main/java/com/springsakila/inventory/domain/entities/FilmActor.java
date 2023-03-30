@@ -1,6 +1,8 @@
 package com.springsakila.inventory.domain.entities;
 
 import java.io.Serializable;
+
+import com.springsakila.inventory.domain.contracts.core.EntityBase;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
 
@@ -12,7 +14,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name="film_actor")
 @NamedQuery(name="FilmActor.findAll", query="SELECT f FROM FilmActor f")
-public class FilmActor implements Serializable {
+public class FilmActor extends EntityBase<FilmActor> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId

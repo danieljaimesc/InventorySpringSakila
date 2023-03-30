@@ -2,6 +2,8 @@ package com.springsakila.inventory.domain.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import com.springsakila.inventory.domain.contracts.core.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 
@@ -16,7 +18,7 @@ import java.util.List;
 @Entity
 @Table(name="category")
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
-public class Category implements Serializable {
+public class Category extends EntityBase<Category> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
