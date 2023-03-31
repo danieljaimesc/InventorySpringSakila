@@ -26,7 +26,7 @@ public class FilmCategoryPK implements Serializable {
         return this.filmId;
     }
 
-    public void setFilmId(int filmId) {
+    protected void setFilmId(int filmId) {
         this.filmId = filmId;
     }
 
@@ -34,7 +34,7 @@ public class FilmCategoryPK implements Serializable {
         return this.categoryId;
     }
 
-    public void setCategoryId(byte categoryId) {
+    protected void setCategoryId(byte categoryId) {
         this.categoryId = categoryId;
     }
 

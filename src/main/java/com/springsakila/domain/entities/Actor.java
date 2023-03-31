@@ -1,6 +1,6 @@
 package com.springsakila.domain.entities;
 
-import com.springsakila.domain.contracts.core.EntityBase;
+import com.springsakila.domain.core.entities.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
@@ -40,11 +40,26 @@ public class Actor extends EntityBase<Actor> implements Serializable {
     @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
     private List<FilmActor> filmActors = new ArrayList<>();
 
+
+    public Actor(int actorId, String firstName, String lastName) {
+        this.actorId = actorId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Actor() {
+
+    }
+
+    public Actor(int actorId) {
+        this.actorId = actorId;
+    }
+
     public int getActorId() {
         return actorId;
     }
 
-    public void setActorId(int actorId) {
+    protected void setActorId(int actorId) {
         this.actorId = actorId;
     }
 
@@ -52,7 +67,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    protected void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
@@ -61,7 +76,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    protected void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -69,7 +84,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    protected void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -77,7 +92,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
         return this.filmActors;
     }
 
-    public void setFilmActors(List<FilmActor> filmActors) {
+    protected void setFilmActors(List<FilmActor> filmActors) {
         this.filmActors = filmActors;
     }
 
@@ -93,8 +108,21 @@ public class Actor extends EntityBase<Actor> implements Serializable {
         return filmActor;
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(actorId, firstName, lastName, lastUpdate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Actor other = (Actor) obj;
+        return actorId == other.actorId;
     }
 }

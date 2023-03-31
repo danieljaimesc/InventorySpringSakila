@@ -1,8 +1,9 @@
 package com.springsakila.domain.entities;
 
-import com.springsakila.domain.contracts.core.EntityBase;
+import com.springsakila.domain.core.entities.EntityBase;
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -14,6 +15,7 @@ import java.sql.Timestamp;
 @Table(name = "film_actor")
 @NamedQuery(name = "FilmActor.findAll", query = "SELECT f FROM FilmActor f")
 public class FilmActor extends EntityBase<FilmActor> implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
@@ -35,11 +37,17 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
     public FilmActor() {
     }
 
+    public FilmActor(Film film, Actor actor) {
+        super();
+        this.actor = actor;
+        this.film = film;
+    }
+
     public FilmActorPK getId() {
         return this.id;
     }
 
-    public void setId(FilmActorPK id) {
+    protected void setId(FilmActorPK id) {
         this.id = id;
     }
 
@@ -47,7 +55,7 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    protected void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -55,7 +63,7 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
         return this.actor;
     }
 
-    public void setActor(Actor actor) {
+    protected void setActor(Actor actor) {
         this.actor = actor;
     }
 
@@ -63,7 +71,7 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
         return this.film;
     }
 
-    public void setFilm(Film film) {
+    protected void setFilm(Film film) {
         this.film = film;
     }
 

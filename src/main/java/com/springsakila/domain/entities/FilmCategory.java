@@ -1,6 +1,6 @@
 package com.springsakila.domain.entities;
 
-import com.springsakila.domain.contracts.core.EntityBase;
+import com.springsakila.domain.core.entities.EntityBase;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -34,14 +34,20 @@ public class FilmCategory extends EntityBase<FilmCategory> implements Serializab
     @JoinColumn(name = "film_id", nullable = false, insertable = false, updatable = false)
     private Film film;
 
-    public FilmCategory() {
+    protected FilmCategory() {
+    }
+
+    public FilmCategory(Film film, Category category) {
+        super();
+        this.film = film;
+        this.category = category;
     }
 
     public FilmCategoryPK getId() {
         return this.id;
     }
 
-    public void setId(FilmCategoryPK id) {
+    protected void setId(FilmCategoryPK id) {
         this.id = id;
     }
 
@@ -49,7 +55,7 @@ public class FilmCategory extends EntityBase<FilmCategory> implements Serializab
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    protected void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -57,7 +63,7 @@ public class FilmCategory extends EntityBase<FilmCategory> implements Serializab
         return this.category;
     }
 
-    public void setCategory(Category category) {
+    protected void setCategory(Category category) {
         this.category = category;
     }
 
@@ -65,7 +71,7 @@ public class FilmCategory extends EntityBase<FilmCategory> implements Serializab
         return this.film;
     }
 
-    public void setFilm(Film film) {
+    protected void setFilm(Film film) {
         this.film = film;
     }
 }

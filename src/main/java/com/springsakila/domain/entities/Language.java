@@ -1,6 +1,6 @@
 package com.springsakila.domain.entities;
 
-import com.springsakila.domain.contracts.core.EntityBase;
+import com.springsakila.domain.core.entities.EntityBase;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -41,11 +41,16 @@ public class Language extends EntityBase<Language> implements Serializable {
     public Language() {
     }
 
+    public Language(Integer Id) {
+        super();
+        this.languageId = Id;
+    }
+
     public int getLanguageId() {
         return this.languageId;
     }
 
-    public void setLanguageId(int languageId) {
+    protected void setLanguageId(int languageId) {
         this.languageId = languageId;
     }
 
@@ -53,7 +58,7 @@ public class Language extends EntityBase<Language> implements Serializable {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    protected void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -61,7 +66,7 @@ public class Language extends EntityBase<Language> implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -69,7 +74,7 @@ public class Language extends EntityBase<Language> implements Serializable {
         return this.films;
     }
 
-    public void setFilms(List<Film> films) {
+    protected void setFilms(List<Film> films) {
         this.films = films;
     }
 
@@ -91,7 +96,7 @@ public class Language extends EntityBase<Language> implements Serializable {
         return this.filmsVO;
     }
 
-    public void setFilmsVO(List<Film> filmsVO) {
+    protected void setFilmsVO(List<Film> filmsVO) {
         this.filmsVO = filmsVO;
     }
 
