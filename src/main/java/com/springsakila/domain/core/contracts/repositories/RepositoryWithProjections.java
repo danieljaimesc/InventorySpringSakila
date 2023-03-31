@@ -1,4 +1,4 @@
-package com.springsakila.domain.contracts.repositories;
+package com.springsakila.domain.core.contracts.repositories;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
