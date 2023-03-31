@@ -1,41 +1,39 @@
 package com.springsakila.inventory.domain.entities;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import com.springsakila.inventory.domain.contracts.core.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 
 /**
  * The persistent class for the category database table.
- *
  */
 @Entity
-@Table(name="category")
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@Table(name = "category")
+@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
 public class Category extends EntityBase<Category> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="category_id", unique=true, nullable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id", unique = true, nullable = false)
     @Max(255)
     private int categoryId;
 
-    @Column(name="last_update", insertable=false, updatable=false, nullable=false)
+    @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
     private Timestamp lastUpdate;
 
-    @Column(nullable=false, length=25)
+    @Column(nullable = false, length = 25)
     private String name;
 
     //bi-directional many-to-one association to FilmCategory
-    @OneToMany(mappedBy="category")
+    @OneToMany(mappedBy = "category")
     private List<FilmCategory> filmCategories;
 
     public Category() {
