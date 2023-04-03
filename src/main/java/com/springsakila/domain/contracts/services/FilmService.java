@@ -8,6 +8,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface FilmService extends ProjectionDomainService<Film, Integer> {
-    List<Film> novedades(Timestamp fecha);
+    List<Film> news(Timestamp date);
 
 }

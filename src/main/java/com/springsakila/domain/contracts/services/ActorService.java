@@ -8,6 +8,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface ActorService extends ProjectionDomainService<Actor, Integer> {
-    List<Actor> novedades(Timestamp fecha);
+    List<Actor> news(Timestamp date);
 
 }

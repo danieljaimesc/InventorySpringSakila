@@ -8,5 +8,5 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface CategoryService extends ProjectionDomainService<Category, Integer> {
-    List<Category> novedades(Timestamp date);
+    List<Category> news(Timestamp date);
 }

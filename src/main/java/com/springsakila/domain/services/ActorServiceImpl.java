@@ -1,17 +1,18 @@
 package com.springsakila.domain.services;
 
 import com.springsakila.domain.contracts.repositories.ActorRepository;
+import com.springsakila.domain.contracts.services.ActorService;
+import com.springsakila.domain.entities.Actor;
 import com.springsakila.shared.exceptions.DuplicateKeyException;
 import com.springsakila.shared.exceptions.InvalidDataException;
 import com.springsakila.shared.exceptions.NotFoundException;
-import com.springsakila.domain.contracts.services.ActorService;
-import com.springsakila.domain.entities.Actor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,4 +85,9 @@ public class ActorServiceImpl implements ActorService {
         dao.deleteById(id);
     }
 
+    @Override
+    public List<Actor> news(Timestamp date) {
+        //TODO Actor news
+        return null;
+    }
 }

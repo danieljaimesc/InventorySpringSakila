@@ -1,17 +1,18 @@
 package com.springsakila.domain.services;
 
+import com.springsakila.domain.contracts.repositories.FilmRepository;
 import com.springsakila.domain.contracts.services.FilmService;
+import com.springsakila.domain.entities.Film;
 import com.springsakila.shared.exceptions.DuplicateKeyException;
 import com.springsakila.shared.exceptions.InvalidDataException;
 import com.springsakila.shared.exceptions.NotFoundException;
-import com.springsakila.domain.contracts.repositories.FilmRepository;
-import com.springsakila.domain.entities.Film;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,12 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
+        return null;
+    }
+
+    @Override
+    public List<Film> news(Timestamp date) {
+        //TODO Film news
         return null;
     }
 }

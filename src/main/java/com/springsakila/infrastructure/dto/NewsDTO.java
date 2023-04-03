@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NovedadesDTO {
+public class NewsDTO {
     private List<FilmEditDTO> films;
-    private List<ActorDTO> actors;
+    private List<CharacterDTO> actors;
     private List<Category> categories;
     private List<Language> languages;
 

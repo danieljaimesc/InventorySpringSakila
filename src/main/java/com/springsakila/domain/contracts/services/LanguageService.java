@@ -8,6 +8,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface LanguageService extends ProjectionDomainService<Language, Integer> {
-    List<Language> novedades(Timestamp fecha);
+    List<Language> news(Timestamp date);
 
 }

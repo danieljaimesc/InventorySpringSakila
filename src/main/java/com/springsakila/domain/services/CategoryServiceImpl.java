@@ -1,11 +1,11 @@
 package com.springsakila.domain.services;
 
-import com.springsakila.shared.exceptions.DuplicateKeyException;
-import com.springsakila.shared.exceptions.InvalidDataException;
-import com.springsakila.shared.exceptions.NotFoundException;
 import com.springsakila.domain.contracts.repositories.CategoryRepository;
 import com.springsakila.domain.contracts.services.CategoryService;
 import com.springsakila.domain.entities.Category;
+import com.springsakila.shared.exceptions.DuplicateKeyException;
+import com.springsakila.shared.exceptions.InvalidDataException;
+import com.springsakila.shared.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,7 +78,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> novedades(Timestamp date) {
+    public List<Category> news(Timestamp date) {
+        //TODO Category news
         return null;
     }
 }
