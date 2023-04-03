@@ -42,10 +42,9 @@ public class FilmCategoryPK implements Serializable {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof FilmCategoryPK)) {
+        if (!(other instanceof FilmCategoryPK castOther)) {
             return false;
         }
-        FilmCategoryPK castOther = (FilmCategoryPK) other;
         return
                 (this.filmId == castOther.filmId)
                         && (this.categoryId == castOther.categoryId);

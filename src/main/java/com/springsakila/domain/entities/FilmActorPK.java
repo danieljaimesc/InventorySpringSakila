@@ -44,10 +44,9 @@ public class FilmActorPK implements Serializable {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof FilmActorPK)) {
+        if (!(other instanceof FilmActorPK castOther)) {
             return false;
         }
-        FilmActorPK castOther = (FilmActorPK) other;
         return
                 (this.actorId == castOther.actorId)
                         && (this.filmId == castOther.filmId);

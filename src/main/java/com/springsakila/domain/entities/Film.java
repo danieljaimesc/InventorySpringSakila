@@ -283,7 +283,7 @@ public class Film extends EntityBase<Film> implements Serializable {
     }
     protected void setActors(List<Actor> source) {
         if(filmActors == null || !filmActors.isEmpty()) clearActors();
-        source.forEach(item -> addActor(item));
+        source.forEach(this::addActor);
     }
     public void clearActors() {
         filmActors = new ArrayList<>() ;
@@ -302,14 +302,14 @@ public class Film extends EntityBase<Film> implements Serializable {
         filmActors.remove(filmActor.get());
     }
 
-    // Gestión de categorias
+    // Categories manage
 
     public List<Category> getCategories() {
         return this.filmCategories.stream().map(FilmCategory::getCategory).toList();
     }
     protected void setCategories(List<Category> source) {
         if(filmCategories == null || !filmCategories.isEmpty()) clearCategories();
-        source.forEach(item -> addCategory(item));
+        source.forEach(this::addCategory);
     }
     public void clearCategories() {
         filmCategories = new ArrayList<>() ;
@@ -356,22 +356,22 @@ public class Film extends EntityBase<Film> implements Serializable {
         target.length = length;
         target.replacementCost = replacementCost;
         target.rating = rating;
-        // Borra los actores que sobran
+        // Remove characters are not need
         target.getActors().stream()
                 .filter(item -> !getActors().contains(item))
-                .forEach(item -> target.removeActor(item));
-        // Añade los actores que faltan
+                .forEach(target::removeActor);
+        // Add missing characters
         getActors().stream()
                 .filter(item -> !target.getActors().contains(item))
-                .forEach(item -> target.addActor(item));
-        // Añade los categorias que faltan
+                .forEach(target::addActor);
+        // Add missing categories
         target.getCategories().stream()
                 .filter(item -> !getCategories().contains(item))
-                .forEach(item -> target.removeCategory(item));
-        // Borra los categorias que sobran
+                .forEach(target::removeCategory);
+        // Remove categories are not neeed
         getCategories().stream()
                 .filter(item -> !target.getCategories().contains(item))
-                .forEach(item -> target.addCategory(item));
+                .forEach(target::addCategory);
         return target;
     }
 }
