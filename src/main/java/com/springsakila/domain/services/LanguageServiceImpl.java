@@ -1,17 +1,18 @@
 package com.springsakila.domain.services;
 
+import com.springsakila.domain.contracts.repositories.LanguageRepository;
+import com.springsakila.domain.contracts.services.LanguageService;
 import com.springsakila.domain.entities.Language;
 import com.springsakila.shared.exceptions.DuplicateKeyException;
 import com.springsakila.shared.exceptions.InvalidDataException;
 import com.springsakila.shared.exceptions.NotFoundException;
-import com.springsakila.domain.contracts.repositories.LanguageRepository;
-import com.springsakila.domain.contracts.services.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,11 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
+        return null;
+    }
+
+    @Override
+    public List<Language> news(Timestamp date) {
         return null;
     }
 }
