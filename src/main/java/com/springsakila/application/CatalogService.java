@@ -1,7 +1,7 @@
 package com.springsakila.application;
 
-import com.springsakila.domain.contracts.services.CharacterService;
 import com.springsakila.domain.contracts.services.CategoryService;
+import com.springsakila.domain.contracts.services.CharacterService;
 import com.springsakila.domain.contracts.services.FilmService;
 import com.springsakila.domain.contracts.services.LanguageService;
 import com.springsakila.infrastructure.dto.CharacterDTO;

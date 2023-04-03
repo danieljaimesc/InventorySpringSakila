@@ -24,113 +24,53 @@ import java.util.Objects;
 public class Film extends EntityBase<Film> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    public static enum Rating {
-        GENERAL_AUDIENCES("G"),
-        PARENTAL_GUIDANCE_SUGGESTED("PG"),
-        PARENTS_STRONGLY_CAUTIONED("PG-13"),
-        RESTRICTED("R"),
-        ADULTS_ONLY("NC-17");
-
-        String value;
-
-        Rating(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-        public static Rating getEnum(String value) {
-            return switch (value) {
-                case "G" -> Rating.GENERAL_AUDIENCES;
-                case "PG" -> Rating.PARENTAL_GUIDANCE_SUGGESTED;
-                case "PG-13" -> Rating.PARENTS_STRONGLY_CAUTIONED;
-                case "R" -> Rating.RESTRICTED;
-                case "NC-17" -> Rating.ADULTS_ONLY;
-                default -> throw new IllegalArgumentException("Unexpected value: " + value);
-            };
-        }
-        public static final String[] VALUES = {"G", "PG", "PG-13", "R", "NC-17"};
-    }
-    @Converter
-    private static class RatingConverter implements AttributeConverter<Rating, String> {
-        @Override
-        public String convertToDatabaseColumn(Rating rating) {
-            if (rating == null) {
-                return null;
-            }
-            return rating.getValue();
-        }
-        @Override
-        public Rating convertToEntityAttribute(String value) {
-            if (value == null) {
-                return null;
-            }
-
-            return Rating.getEnum(value);
-        }
-    }
-
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="film_id", unique=true, nullable=false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "film_id", unique = true, nullable = false)
     private int filmId;
-
     @Lob
     private String description;
-
-    @Column(name="last_update", insertable = false, updatable = false, nullable=false)
+    @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
     private Timestamp lastUpdate;
-
     @Positive
     private Integer length;
-
     @Convert(converter = RatingConverter.class)
     private Rating rating;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy")
     @Min(1895)
-    @Column(name="release_year")
+    @Column(name = "release_year")
     private Short releaseYear;
-
     @Positive
-    @Column(name="rental_duration", nullable=false)
+    @Column(name = "rental_duration", nullable = false)
     private Byte rentalDuration;
-
     @Positive
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer=2, fraction=2)
-    @Column(name="rental_rate", nullable=false, precision=10, scale=2)
+    @Digits(integer = 2, fraction = 2)
+    @Column(name = "rental_rate", nullable = false, precision = 10, scale = 2)
     private BigDecimal rentalRate;
-
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer=3, fraction=2)
-    @Column(name="replacement_cost", nullable=false, precision=10, scale=2)
+    @Digits(integer = 3, fraction = 2)
+    @Column(name = "replacement_cost", nullable = false, precision = 10, scale = 2)
     private BigDecimal replacementCost;
-
     @NotBlank
     @Size(max = 128)
-    @Column(nullable=false, length=128)
+    @Column(nullable = false, length = 128)
     private String title;
-
     //bi-directional many-to-one association to Language
     @ManyToOne
-    @JoinColumn(name="language_id")
+    @JoinColumn(name = "language_id")
     @NotNull
     private Language language;
-
     //bidirectional many-to-one association to Language
     @ManyToOne
-    @JoinColumn(name="original_language_id")
+    @JoinColumn(name = "original_language_id")
     private Language languageVO;
-
     //bidirectional many-to-one association to FilmCharacter
-    @OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<FilmCharacter> filmCharacters = new ArrayList<>();
-
     //bi-directional many-to-one association to FilmCategory
-    @OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<FilmCategory> filmCategories = new ArrayList<>();
 
@@ -182,10 +122,14 @@ public class Film extends EntityBase<Film> implements Serializable {
 
     protected void setFilmId(int filmId) {
         this.filmId = filmId;
-        if(filmCharacters != null && filmCharacters.size() > 0)
-            filmCharacters.forEach(item -> { if(item.getId().getFilmId() != filmId) item.getId().setFilmId(filmId); });
-        if(filmCategories != null && filmCategories.size() > 0)
-            filmCategories.forEach(item -> { if(item.getId().getFilmId() != filmId) item.getId().setFilmId(filmId); });
+        if (filmCharacters != null && filmCharacters.size() > 0)
+            filmCharacters.forEach(item -> {
+                if (item.getId().getFilmId() != filmId) item.getId().setFilmId(filmId);
+            });
+        if (filmCategories != null && filmCategories.size() > 0)
+            filmCategories.forEach(item -> {
+                if (item.getId().getFilmId() != filmId) item.getId().setFilmId(filmId);
+            });
     }
 
     public String getDescription() {
@@ -276,54 +220,64 @@ public class Film extends EntityBase<Film> implements Serializable {
         this.languageVO = languageVO;
     }
 
-    // Characters manage
-
     public List<Character> getCharacters() {
         return this.filmCharacters.stream().map(FilmCharacter::getCharacter).toList();
     }
+
     protected void setCharacters(List<Character> source) {
-        if(filmCharacters == null || !filmCharacters.isEmpty()) clearCharacters();
+        if (filmCharacters == null || !filmCharacters.isEmpty()) clearCharacters();
         source.forEach(this::addCharacter);
     }
+
+    // Characters manage
+
     public void clearCharacters() {
-        filmCharacters = new ArrayList<>() ;
+        filmCharacters = new ArrayList<>();
     }
+
     public void addCharacter(Character character) {
         FilmCharacter filmCharacter = new FilmCharacter(this, character);
         filmCharacters.add(filmCharacter);
     }
+
     public void addCharacter(int characterId) {
         addCharacter(new Character(characterId));
     }
+
     public void removeCharacter(Character character) {
         var filmCharacter = filmCharacters.stream().filter(item -> item.getCharacter().equals(character)).findFirst();
-        if(filmCharacter.isEmpty())
+        if (filmCharacter.isEmpty())
             return;
         filmCharacters.remove(filmCharacter.get());
     }
 
-    // Categories manage
-
     public List<Category> getCategories() {
         return this.filmCategories.stream().map(FilmCategory::getCategory).toList();
     }
+
     protected void setCategories(List<Category> source) {
-        if(filmCategories == null || !filmCategories.isEmpty()) clearCategories();
+        if (filmCategories == null || !filmCategories.isEmpty()) clearCategories();
         source.forEach(this::addCategory);
     }
+
+    // Categories manage
+
     public void clearCategories() {
-        filmCategories = new ArrayList<>() ;
+        filmCategories = new ArrayList<>();
     }
+
     public void addCategory(Category item) {
         FilmCategory filmCategory = new FilmCategory(this, item);
         filmCategories.add(filmCategory);
     }
+
     public void addCategory(int id) {
         addCategory(new Category(id));
     }
+
     public void removeCategory(Category ele) {
         var filmCategory = filmCategories.stream().filter(item -> item.getCategory().equals(ele)).findFirst();
-        if(filmCategory.isEmpty())
+        if (filmCategory.isEmpty())
             return;
         filmCategories.remove(filmCategory.get());
     }
@@ -373,5 +327,55 @@ public class Film extends EntityBase<Film> implements Serializable {
                 .filter(item -> !target.getCategories().contains(item))
                 .forEach(target::addCategory);
         return target;
+    }
+
+    public enum Rating {
+        GENERAL_AUDIENCES("G"),
+        PARENTAL_GUIDANCE_SUGGESTED("PG"),
+        PARENTS_STRONGLY_CAUTIONED("PG-13"),
+        RESTRICTED("R"),
+        ADULTS_ONLY("NC-17");
+
+        public static final String[] VALUES = {"G", "PG", "PG-13", "R", "NC-17"};
+        String value;
+
+        Rating(String value) {
+            this.value = value;
+        }
+
+        public static Rating getEnum(String value) {
+            return switch (value) {
+                case "G" -> Rating.GENERAL_AUDIENCES;
+                case "PG" -> Rating.PARENTAL_GUIDANCE_SUGGESTED;
+                case "PG-13" -> Rating.PARENTS_STRONGLY_CAUTIONED;
+                case "R" -> Rating.RESTRICTED;
+                case "NC-17" -> Rating.ADULTS_ONLY;
+                default -> throw new IllegalArgumentException("Unexpected value: " + value);
+            };
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    @Converter
+    private static class RatingConverter implements AttributeConverter<Rating, String> {
+        @Override
+        public String convertToDatabaseColumn(Rating rating) {
+            if (rating == null) {
+                return null;
+            }
+            return rating.getValue();
+        }
+
+        @Override
+        public Rating convertToEntityAttribute(String value) {
+            if (value == null) {
+                return null;
+            }
+
+            return Rating.getEnum(value);
+        }
     }
 }

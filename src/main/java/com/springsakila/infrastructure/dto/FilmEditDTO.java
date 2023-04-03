@@ -1,8 +1,8 @@
 package com.springsakila.infrastructure.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.springsakila.domain.entities.Character;
 import com.springsakila.domain.entities.Category;
+import com.springsakila.domain.entities.Character;
 import com.springsakila.domain.entities.Film;
 import com.springsakila.domain.entities.Language;
 import jakarta.validation.constraints.NotBlank;
