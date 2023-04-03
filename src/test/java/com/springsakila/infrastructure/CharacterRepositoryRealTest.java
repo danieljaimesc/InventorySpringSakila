@@ -1,7 +1,7 @@
 package com.springsakila.infrastructure;
 
-import com.springsakila.domain.contracts.repositories.ActorRepository;
-import com.springsakila.domain.entities.Actor;
+import com.springsakila.domain.contracts.repositories.CharacterRepository;
+import com.springsakila.domain.entities.Character;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +12,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
-public class ActorRepositoryRealTest {
+public class CharacterRepositoryRealTest {
     @Autowired
-    ActorRepository dao;
+    CharacterRepository dao;
     @Autowired
     private TestEntityManager em;
 
     @BeforeEach
     void setUp() throws Exception {
         /*
-        TODO - Actor constructor
-        em.persist(new Actor(0, "", ""));
-        em.persist(new Actor(0, "", ""));
-        em.persist(new Actor(0, "", ""));
+        TODO - Character constructor
+        em.persist(new Character(0, "", ""));
+        em.persist(new Character(0, "", ""));
+        em.persist(new Character(0, "", ""));
         */
     }
 
@@ -42,6 +42,6 @@ public class ActorRepositoryRealTest {
 
     @Test
     void testSave() {
-        var item = dao.save(new Actor());
+        var item = dao.save(new Character());
     }
 }

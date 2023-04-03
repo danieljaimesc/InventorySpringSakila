@@ -1,7 +1,7 @@
 package com.springsakila.infrastructure.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.springsakila.domain.entities.Actor;
+import com.springsakila.domain.entities.Character;
 import com.springsakila.domain.entities.Category;
 import com.springsakila.domain.entities.Film;
 import com.springsakila.domain.entities.Language;
@@ -38,7 +38,7 @@ public class FilmEditDTO {
     @NotNull
     private Integer languageId;
     private Integer languageVOId;
-    private List<Integer> actors = new ArrayList<>();
+    private List<Integer> characters = new ArrayList<>();
     private List<Integer> categories = new ArrayList<>();
 
     public static FilmEditDTO from(Film source) {
@@ -54,7 +54,7 @@ public class FilmEditDTO {
                 source.getTitle(),
                 source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
                 source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
-                source.getActors().stream().map(Actor::getActorId)
+                source.getCharacters().stream().map(Character::getCharacterId)
                         .collect(Collectors.toList()),
                 source.getCategories().stream().map(Category::getCategoryId)
                         .collect(Collectors.toList())
@@ -75,7 +75,7 @@ public class FilmEditDTO {
                 source.getReplacementCost(),
                 source.getRating() == null ? null : Film.Rating.getEnum(source.getRating())
         );
-        source.getActors().forEach(rslt::addActor);
+        source.getCharacters().forEach(rslt::addCharacter);
         source.getCategories().forEach(rslt::addCategory);
         return rslt;
     }

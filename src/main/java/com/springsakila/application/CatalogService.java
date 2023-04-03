@@ -1,6 +1,6 @@
 package com.springsakila.application;
 
-import com.springsakila.domain.contracts.services.ActorService;
+import com.springsakila.domain.contracts.services.CharacterService;
 import com.springsakila.domain.contracts.services.CategoryService;
 import com.springsakila.domain.contracts.services.FilmService;
 import com.springsakila.domain.contracts.services.LanguageService;
@@ -18,7 +18,7 @@ public class CatalogService {
     @Autowired
     private FilmService filmSrv;
     @Autowired
-    private ActorService artorSrv;
+    private CharacterService artorSrv;
     @Autowired
     private CategoryService categorySrv;
     @Autowired

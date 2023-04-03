@@ -13,41 +13,41 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "film_actor")
-@NamedQuery(name = "FilmActor.findAll", query = "SELECT f FROM FilmActor f")
-public class FilmActor extends EntityBase<FilmActor> implements Serializable {
+@NamedQuery(name = "FilmCharacter.findAll", query = "SELECT f FROM FilmCharacter f")
+public class FilmCharacter extends EntityBase<FilmCharacter> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private FilmActorPK id;
+    private FilmCharacterPK id;
 
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
 
-    //bi-directional many-to-one association to Actor
+    //bidirectional many-to-one association to Character
     @ManyToOne
     @JoinColumn(name = "actor_id", nullable = false, insertable = false, updatable = false)
-    private Actor actor;
+    private Character character;
 
-    //bi-directional many-to-one association to Film
+    //bidirectional many-to-one association to Film
     @ManyToOne
     @JoinColumn(name = "film_id", nullable = false, insertable = false, updatable = false)
     private Film film;
 
-    public FilmActor() {
+    public FilmCharacter() {
     }
 
-    public FilmActor(Film film, Actor actor) {
+    public FilmCharacter(Film film, Character character) {
         super();
-        this.actor = actor;
+        this.character = character;
         this.film = film;
     }
 
-    public FilmActorPK getId() {
+    public FilmCharacterPK getId() {
         return this.id;
     }
 
-    protected void setId(FilmActorPK id) {
+    protected void setId(FilmCharacterPK id) {
         this.id = id;
     }
 
@@ -59,12 +59,12 @@ public class FilmActor extends EntityBase<FilmActor> implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public Actor getActor() {
-        return this.actor;
+    public Character getCharacter() {
+        return this.character;
     }
 
-    protected void setActor(Actor actor) {
-        this.actor = actor;
+    protected void setCharacter(Character character) {
+        this.character = character;
     }
 
     public Film getFilm() {

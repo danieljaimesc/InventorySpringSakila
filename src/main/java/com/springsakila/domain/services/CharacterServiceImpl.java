@@ -1,8 +1,8 @@
 package com.springsakila.domain.services;
 
-import com.springsakila.domain.contracts.repositories.ActorRepository;
-import com.springsakila.domain.contracts.services.ActorService;
-import com.springsakila.domain.entities.Actor;
+import com.springsakila.domain.contracts.repositories.CharacterRepository;
+import com.springsakila.domain.contracts.services.CharacterService;
+import com.springsakila.domain.entities.Character;
 import com.springsakila.shared.exceptions.DuplicateKeyException;
 import com.springsakila.shared.exceptions.InvalidDataException;
 import com.springsakila.shared.exceptions.NotFoundException;
@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ActorServiceImpl implements ActorService {
+public class CharacterServiceImpl implements CharacterService {
     @Autowired
-    ActorRepository dao;
+    CharacterRepository dao;
 
     @Override
     public <T> List<T> getByProjection(Class<T> type) {
@@ -37,47 +37,47 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public Iterable<Actor> getAll(Sort sort) {
+    public Iterable<Character> getAll(Sort sort) {
         return dao.findAll(sort);
     }
 
     @Override
-    public Page<Actor> getAll(Pageable pageable) {
+    public Page<Character> getAll(Pageable pageable) {
         return dao.findAll(pageable);
     }
 
     @Override
-    public List<Actor> getAll() {
+    public List<Character> getAll() {
         return dao.findAll();
     }
 
     @Override
-    public Optional<Actor> getOne(Integer id) {
+    public Optional<Character> getOne(Integer id) {
         return dao.findById(id);
     }
 
     @Override
-    public Actor add(Actor item) throws DuplicateKeyException, InvalidDataException {
+    public Character add(Character item) throws DuplicateKeyException, InvalidDataException {
         if (item == null) throw new InvalidDataException("No puede ser nulo");
         if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
-        if (dao.existsById(item.getActorId())) throw new DuplicateKeyException(item.getErrorsMessage());
+        if (dao.existsById(item.getCharacterId())) throw new DuplicateKeyException(item.getErrorsMessage());
 
         return dao.save(item);
     }
 
     @Override
-    public Actor modify(Actor item) throws NotFoundException, InvalidDataException {
+    public Character modify(Character item) throws NotFoundException, InvalidDataException {
         if (item == null) throw new InvalidDataException("No puede ser nulo");
         if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
-        if (!dao.existsById(item.getActorId())) throw new NotFoundException();
+        if (!dao.existsById(item.getCharacterId())) throw new NotFoundException();
 
         return dao.save(item);
     }
 
     @Override
-    public void delete(Actor item) throws InvalidDataException {
+    public void delete(Character item) throws InvalidDataException {
         if (item == null) throw new InvalidDataException("No puede ser nulo");
-        deleteById(item.getActorId());
+        deleteById(item.getCharacterId());
     }
 
     @Override
@@ -86,8 +86,8 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public List<Actor> news(Timestamp date) {
-        //TODO Actor news
+    public List<Character> news(Timestamp date) {
+        //TODO Character news
         return null;
     }
 }

@@ -22,7 +22,7 @@ public class FilmDetailsDTO {
     private String title;
     private String language;
     private String languageVO;
-    private List<String> actors;
+    private List<String> characters;
     private List<String> categories;
 
     public static FilmDetailsDTO from(Film source) {
@@ -38,7 +38,7 @@ public class FilmDetailsDTO {
                 source.getTitle(),
                 source.getLanguage() == null ? null : source.getLanguage().getName(),
                 source.getLanguageVO() == null ? null : source.getLanguageVO().getName(),
-                source.getActors().stream().map(item -> item.getFirstName() + " " + item.getLastName())
+                source.getCharacters().stream().map(item -> item.getFirstName() + " " + item.getLastName())
                         .sorted().toList(),
                 source.getCategories().stream().map(Category::getName).sorted().toList()
         );

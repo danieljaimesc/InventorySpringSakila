@@ -15,12 +15,12 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "actor")
-@NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a")
-public class Actor extends EntityBase<Actor> implements Serializable {
+@NamedQuery(name = "Character.findAll", query = "SELECT a FROM Character a")
+public class Character extends EntityBase<Character> implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "actor_id", unique = true, nullable = false)
-    private int actorId;
+    private int characterId;
 
     @Column(name = "first_name", nullable = false, length = 45)
     @NotBlank
@@ -36,31 +36,31 @@ public class Actor extends EntityBase<Actor> implements Serializable {
     @PastOrPresent
     private Timestamp lastUpdate;
 
-    //bi-directional many-to-one association to FilmActor
+    //bidirectional many-to-one association to FilmCharacter
     @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
-    private List<FilmActor> filmActors = new ArrayList<>();
+    private List<FilmCharacter> filmCharacters = new ArrayList<>();
 
 
-    public Actor(int actorId, String firstName, String lastName) {
-        this.actorId = actorId;
+    public Character(int characterId, String firstName, String lastName) {
+        this.characterId = characterId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public Actor() {
+    public Character() {
 
     }
 
-    public Actor(int actorId) {
-        this.actorId = actorId;
+    public Character(int characterId) {
+        this.characterId = characterId;
     }
 
-    public int getActorId() {
-        return actorId;
+    public int getCharacterId() {
+        return characterId;
     }
 
-    protected void setActorId(int actorId) {
-        this.actorId = actorId;
+    protected void setCharacterId(int characterId) {
+        this.characterId = characterId;
     }
 
     public String getFirstName() {
@@ -88,30 +88,30 @@ public class Actor extends EntityBase<Actor> implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public List<FilmActor> getFilmActors() {
-        return this.filmActors;
+    public List<FilmCharacter> getFilmCharacters() {
+        return this.filmCharacters;
     }
 
-    protected void setFilmActors(List<FilmActor> filmActors) {
-        this.filmActors = filmActors;
+    protected void setFilmCharacters(List<FilmCharacter> filmCharacters) {
+        this.filmCharacters = filmCharacters;
     }
 
-    public FilmActor addFilmActor(FilmActor filmActor) {
-        getFilmActors().add(filmActor);
-        //TODO filmActor.setActor(this);
-        return filmActor;
+    public FilmCharacter addFilmCharacter(FilmCharacter filmCharacter) {
+        getFilmCharacters().add(filmCharacter);
+        //TODO filmCharacter.setCharacter(this);
+        return filmCharacter;
     }
 
-    public FilmActor removeFilmActor(FilmActor filmActor) {
-        getFilmActors().remove(filmActor);
-        //TODO filmActor.setActor(null);
-        return filmActor;
+    public FilmCharacter removeFilmCharacter(FilmCharacter filmCharacter) {
+        getFilmCharacters().remove(filmCharacter);
+        //TODO filmCharacter.setCharacter(null);
+        return filmCharacter;
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(actorId, firstName, lastName, lastUpdate);
+        return Objects.hash(characterId, firstName, lastName, lastUpdate);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Actor extends EntityBase<Actor> implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Actor other = (Actor) obj;
-        return actorId == other.actorId;
+        Character other = (Character) obj;
+        return characterId == other.characterId;
     }
 }
