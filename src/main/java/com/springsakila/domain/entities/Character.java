@@ -37,7 +37,7 @@ public class Character extends EntityBase<Character> implements Serializable {
     private Timestamp lastUpdate;
 
     //bidirectional many-to-one association to FilmCharacter
-    @OneToMany(mappedBy = "actor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "character", fetch = FetchType.LAZY)
     private List<FilmCharacter> filmCharacters = new ArrayList<>();
 
 
