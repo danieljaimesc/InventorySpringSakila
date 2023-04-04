@@ -88,7 +88,8 @@ public class Film extends EntityBase<Film> implements Serializable {
                 @Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
                 @Positive Integer length,
                 @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,
-                Rating rating) {
+                Rating rating
+    ) {
         super();
         this.filmId = filmId;
         this.title = title;
@@ -324,60 +325,10 @@ public class Film extends EntityBase<Film> implements Serializable {
         target.getCategories().stream()
                 .filter(item -> !getCategories().contains(item))
                 .forEach(target::removeCategory);
-        // Remove categories are not neeed
+        // Remove categories are not need
         getCategories().stream()
                 .filter(item -> !target.getCategories().contains(item))
                 .forEach(target::addCategory);
         return target;
-    }
-
-    public enum Rating {
-        GENERAL_AUDIENCES("G"),
-        PARENTAL_GUIDANCE_SUGGESTED("PG"),
-        PARENTS_STRONGLY_CAUTIONED("PG-13"),
-        RESTRICTED("R"),
-        ADULTS_ONLY("NC-17");
-
-        public static final String[] VALUES = {"G", "PG", "PG-13", "R", "NC-17"};
-        String value;
-
-        Rating(String value) {
-            this.value = value;
-        }
-
-        public static Rating getEnum(String value) {
-            return switch (value) {
-                case "G" -> Rating.GENERAL_AUDIENCES;
-                case "PG" -> Rating.PARENTAL_GUIDANCE_SUGGESTED;
-                case "PG-13" -> Rating.PARENTS_STRONGLY_CAUTIONED;
-                case "R" -> Rating.RESTRICTED;
-                case "NC-17" -> Rating.ADULTS_ONLY;
-                default -> throw new IllegalArgumentException("Unexpected value: " + value);
-            };
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
-    @Converter
-    private static class RatingConverter implements AttributeConverter<Rating, String> {
-        @Override
-        public String convertToDatabaseColumn(Rating rating) {
-            if (rating == null) {
-                return null;
-            }
-            return rating.getValue();
-        }
-
-        @Override
-        public Rating convertToEntityAttribute(String value) {
-            if (value == null) {
-                return null;
-            }
-
-            return Rating.getEnum(value);
-        }
     }
 }
