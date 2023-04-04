@@ -32,10 +32,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category add(Category item) throws DuplicateKeyException, InvalidDataException {
+        //VALIDATE IS NOT NULL AND
         if (item == null)
             throw new InvalidDataException(InvalidDataException.MISSING_DATA);
         if (item.isInvalid())
             throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
+        //IF IT HAS THE SAME PK IS DUPLICATE
         if (getOne(item.getCategoryId()).isPresent())
             throw new DuplicateKeyException();
         return dao.save(item);
@@ -47,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
         if (item.isInvalid())
             throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
-        if (getOne(item.getCategoryId()).isEmpty())
+        if (dao.existsById((item.getCategoryId())))
             throw new NotFoundException();
         return dao.save(item);
     }
@@ -61,7 +63,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(Integer id) {
-
+        dao.deleteById(id);
     }
 
     @Override

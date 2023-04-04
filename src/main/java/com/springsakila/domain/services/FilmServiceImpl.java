@@ -43,7 +43,7 @@ public class FilmServiceImpl implements FilmService {
     public Film modify(Film item) throws NotFoundException, InvalidDataException {
         if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
         if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
-        if (!dao.existsById(item.getFilmId())) throw new NotFoundException();
+        if (dao.existsById(item.getFilmId())) throw new NotFoundException();
         return dao.save(item);
     }
 

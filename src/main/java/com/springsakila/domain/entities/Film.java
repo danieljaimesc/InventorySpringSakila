@@ -56,7 +56,7 @@ public class Film extends EntityBase<Film> implements Serializable {
     @Size(max = 128)
     @Column(nullable = false, length = 128)
     private String title;
-    //bi-directional many-to-one association to Language
+    //bidirectional many-to-one association to Language
     @ManyToOne
     @JoinColumn(name = "language_id")
     @NotNull
@@ -69,7 +69,7 @@ public class Film extends EntityBase<Film> implements Serializable {
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<FilmCharacter> filmCharacters = new ArrayList<>();
-    //bi-directional many-to-one association to FilmCategory
+    //bidirectional many-to-one association to FilmCategory
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<FilmCategory> filmCategories = new ArrayList<>();
@@ -82,7 +82,9 @@ public class Film extends EntityBase<Film> implements Serializable {
     }
 
     public Film(int filmId, @NotBlank @Size(max = 128) String title, String description, @Min(1895) Short releaseYear,
-                @NotNull Language language, Language languageVO, @Positive Byte rentalDuration,
+                @NotNull Language language,
+                Language languageVO,
+                @Positive Byte rentalDuration,
                 @Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
                 @Positive Integer length,
                 @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,

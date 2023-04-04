@@ -24,12 +24,12 @@ public class FilmCategory extends EntityBase<FilmCategory> implements Serializab
     @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
 
-    //bi-directional many-to-one association to Category
+    //bidirectional many-to-one association to Category
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, insertable = false, updatable = false)
     private Category category;
 
-    //bi-directional many-to-one association to Film
+    //bidirectional many-to-one association to Film
     @ManyToOne
     @JoinColumn(name = "film_id", nullable = false, insertable = false, updatable = false)
     private Film film;

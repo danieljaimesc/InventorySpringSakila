@@ -30,11 +30,11 @@ public class Language extends EntityBase<Language> implements Serializable {
     @Column(nullable = false, length = 20)
     private String name;
 
-    //bi-directional many-to-one association to Film
+    //bidirectional many-to-one association to Film
     @OneToMany(mappedBy = "language")
     private List<Film> films;
 
-    //bi-directional many-to-one association to Film
+    //bidirectional many-to-one association to Film
     @OneToMany(mappedBy = "languageVO")
     private List<Film> filmsVO;
 
