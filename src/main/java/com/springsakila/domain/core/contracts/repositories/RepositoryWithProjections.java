@@ -7,9 +7,9 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 public interface RepositoryWithProjections {
-    <T> List<T> findAllBy(Class<T> tipo);
+    <T> List<T> findAllBy(Class<T> type);
 
-    <T> Iterable<T> findAllBy(Sort orden, Class<T> tipo);
+    <T> Iterable<T> findAllBy(Sort order, Class<T> type);
 
-    <T> Page<T> findAllBy(Pageable page, Class<T> tipo);
+    <T> Page<T> findAllBy(Pageable page, Class<T> type);
 }
