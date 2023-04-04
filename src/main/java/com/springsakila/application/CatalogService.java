@@ -18,7 +18,7 @@ public class CatalogService {
     @Autowired
     private FilmService filmSrv;
     @Autowired
-    private CharacterService artorSrv;
+    private CharacterService characterSrv;
     @Autowired
     private CategoryService categorySrv;
     @Autowired
@@ -30,7 +30,7 @@ public class CatalogService {
             date = Timestamp.from(Instant.now().minusSeconds(36000));
         return new NewsDTO(
                 filmSrv.news(date).stream().map(FilmEditDTO::from).toList(),
-                artorSrv.news(date).stream().map(CharacterDTO::from).toList(),
+                characterSrv.news(date).stream().map(CharacterDTO::from).toList(),
                 categorySrv.news(date),
                 languageSrv.news(date)
         );
