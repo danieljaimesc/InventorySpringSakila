@@ -7,9 +7,6 @@ import com.springsakila.shared.exceptions.DuplicateKeyException;
 import com.springsakila.shared.exceptions.InvalidDataException;
 import com.springsakila.shared.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -24,61 +21,43 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public List<Language> getAll() {
-        return null;
+        return dao.findAll();
     }
 
     @Override
     public Optional<Language> getOne(Integer id) {
-        return Optional.empty();
+        return dao.findById(id);
     }
 
     @Override
     public Language add(Language item) throws DuplicateKeyException, InvalidDataException {
-        return null;
+        if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
+        if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
+        if (dao.existsById(item.getLanguageId())) throw new DuplicateKeyException(item.getErrorsMessage());
+        return dao.save(item);
     }
 
     @Override
     public Language modify(Language item) throws NotFoundException, InvalidDataException {
-        return null;
+        if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
+        if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
+        if (!dao.existsById(item.getLanguageId())) throw new NotFoundException();
+        return dao.save(item);
     }
 
     @Override
     public void delete(Language item) throws InvalidDataException {
-
+        if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
+        deleteById(item.getLanguageId());
     }
 
     @Override
     public void deleteById(Integer id) {
-
-    }
-
-    @Override
-    public Iterable<Language> getAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public Page<Language> getAll(Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public <T> List<T> getByProjection(Class<T> type) {
-        return null;
-    }
-
-    @Override
-    public <T> Iterable<T> getByProjection(Sort sort, Class<T> type) {
-        return null;
-    }
-
-    @Override
-    public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
-        return null;
+        dao.deleteById(id);
     }
 
     @Override
     public List<Language> news(Timestamp date) {
-        return null;
+        return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date);
     }
 }

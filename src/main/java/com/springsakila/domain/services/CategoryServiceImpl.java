@@ -7,8 +7,6 @@ import com.springsakila.shared.exceptions.DuplicateKeyException;
 import com.springsakila.shared.exceptions.InvalidDataException;
 import com.springsakila.shared.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -24,27 +22,41 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> getAll() {
-        return null;
+        return dao.findAll(Sort.by("name"));
     }
 
     @Override
     public Optional<Category> getOne(Integer id) {
-        return Optional.empty();
+        return dao.findById(id);
     }
 
     @Override
     public Category add(Category item) throws DuplicateKeyException, InvalidDataException {
-        return null;
+        if (item == null)
+            throw new InvalidDataException(InvalidDataException.MISSING_DATA);
+        if (item.isInvalid())
+            throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
+        if (getOne(item.getCategoryId()).isPresent())
+            throw new DuplicateKeyException();
+        return dao.save(item);
     }
 
     @Override
     public Category modify(Category item) throws NotFoundException, InvalidDataException {
-        return null;
+        if (item == null)
+            throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
+        if (item.isInvalid())
+            throw new InvalidDataException(item.getErrorsMessage(), item.getErrorsFields());
+        if (getOne(item.getCategoryId()).isEmpty())
+            throw new NotFoundException();
+        return dao.save(item);
     }
 
     @Override
     public void delete(Category item) throws InvalidDataException {
-
+        if (item == null)
+            throw new InvalidDataException("Missing data");
+        deleteById(item.getCategoryId());
     }
 
     @Override
@@ -53,33 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Iterable<Category> getAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public Page<Category> getAll(Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public <T> List<T> getByProjection(Class<T> type) {
-        return null;
-    }
-
-    @Override
-    public <T> Iterable<T> getByProjection(Sort sort, Class<T> type) {
-        return null;
-    }
-
-    @Override
-    public <T> Page<T> getByProjection(Pageable pageable, Class<T> type) {
-        return null;
-    }
-
-    @Override
     public List<Category> news(Timestamp date) {
-        //TODO Category news
-        return null;
+        return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date);
     }
 }

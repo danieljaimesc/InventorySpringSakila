@@ -6,6 +6,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -26,8 +27,8 @@ public abstract class EntityBase<E> {
         Set<ConstraintViolation<E>> lst = getErrors();
         if (lst.isEmpty())
             return "";
-        StringBuilder sb = new StringBuilder("ERRORES:");
-        getErrorsFields().forEach((fld, err) -> sb.append(" " + fld + ": " + err + "."));
+        StringBuilder sb = new StringBuilder("ERRORS:");
+        getErrorsFields().forEach((fld, err) -> sb.append(" ").append(fld).append(": ").append(err).append("."));
         return sb.toString();
     }
 
@@ -38,7 +39,7 @@ public abstract class EntityBase<E> {
         if (lst.isEmpty())
             return null;
         Map<String, String> errors = new HashMap<>();
-        lst.stream().sorted((a, b) -> a.getPropertyPath().toString().compareTo(b.getPropertyPath().toString()))
+        lst.stream().sorted(Comparator.comparing(a -> a.getPropertyPath().toString()))
                 .forEach(item -> errors.put(item.getPropertyPath().toString(),
                         (errors.containsKey(item.getPropertyPath().toString()) ?
                                 errors.get(item.getPropertyPath().toString()) + ", " : "")

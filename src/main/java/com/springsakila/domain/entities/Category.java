@@ -32,7 +32,7 @@ public class Category extends EntityBase<Category> implements Serializable {
     @Column(nullable = false, length = 25)
     private String name;
 
-    //bi-directional many-to-one association to FilmCategory
+    //bidirectional many-to-one association to FilmCategory
     @OneToMany(mappedBy = "category")
     private List<FilmCategory> filmCategories;
 

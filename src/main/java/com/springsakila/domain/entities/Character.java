@@ -29,7 +29,7 @@ public class Character extends EntityBase<Character> implements Serializable {
 
     @Column(name = "last_name", nullable = false, length = 45)
     @Size(max = 45, min = 2)
-    @Pattern(regexp = "[A-Z]+", message = "Tiene que estar en mayusculas")
+    @Pattern(regexp = "[A-Z]+", message = "It has to be in upper case")
     private String lastName;
 
     @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
@@ -98,13 +98,13 @@ public class Character extends EntityBase<Character> implements Serializable {
 
     public FilmCharacter addFilmCharacter(FilmCharacter filmCharacter) {
         getFilmCharacters().add(filmCharacter);
-        //TODO filmCharacter.setCharacter(this);
+        filmCharacter.setCharacter(this);
         return filmCharacter;
     }
 
     public FilmCharacter removeFilmCharacter(FilmCharacter filmCharacter) {
         getFilmCharacters().remove(filmCharacter);
-        //TODO filmCharacter.setCharacter(null);
+        filmCharacter.setCharacter(null);
         return filmCharacter;
     }
 

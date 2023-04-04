@@ -22,6 +22,16 @@ public class CharacterServiceImpl implements CharacterService {
     CharacterRepository dao;
 
     @Override
+    public Iterable<Character> getAll(Sort sort) {
+        return dao.findAll(sort);
+    }
+
+    @Override
+    public Page<Character> getAll(Pageable pageable) {
+        return dao.findAll(pageable);
+    }
+
+    @Override
     public <T> List<T> getByProjection(Class<T> type) {
         return dao.findAllBy(type);
     }
@@ -37,16 +47,6 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public Iterable<Character> getAll(Sort sort) {
-        return dao.findAll(sort);
-    }
-
-    @Override
-    public Page<Character> getAll(Pageable pageable) {
-        return dao.findAll(pageable);
-    }
-
-    @Override
     public List<Character> getAll() {
         return dao.findAll();
     }
@@ -58,25 +58,23 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public Character add(Character item) throws DuplicateKeyException, InvalidDataException {
-        if (item == null) throw new InvalidDataException("No puede ser nulo");
+        if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
         if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
         if (dao.existsById(item.getCharacterId())) throw new DuplicateKeyException(item.getErrorsMessage());
-
         return dao.save(item);
     }
 
     @Override
     public Character modify(Character item) throws NotFoundException, InvalidDataException {
-        if (item == null) throw new InvalidDataException("No puede ser nulo");
+        if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
         if (item.isInvalid()) throw new InvalidDataException(item.getErrorsMessage());
         if (!dao.existsById(item.getCharacterId())) throw new NotFoundException();
-
         return dao.save(item);
     }
 
     @Override
     public void delete(Character item) throws InvalidDataException {
-        if (item == null) throw new InvalidDataException("No puede ser nulo");
+        if (item == null) throw new InvalidDataException(InvalidDataException.CANT_BE_NULL);
         deleteById(item.getCharacterId());
     }
 
@@ -87,7 +85,6 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<Character> news(Timestamp date) {
-        //TODO Character news
-        return null;
+        return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date);
     }
 }
