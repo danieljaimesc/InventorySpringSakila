@@ -1,10 +1,8 @@
 package com.springsakila.infrastructure.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.springsakila.domain.entities.Category;
 import com.springsakila.domain.entities.Character;
-import com.springsakila.domain.entities.Film;
-import com.springsakila.domain.entities.Language;
+import com.springsakila.domain.entities.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -73,7 +71,7 @@ public class FilmEditDTO {
                 source.getRentalRate(),
                 source.getLength(),
                 source.getReplacementCost(),
-                source.getRating() == null ? null : Film.Rating.getEnum(source.getRating())
+                source.getRating() == null ? null : Rating.getEnum(source.getRating())
         );
         source.getCharacters().forEach(rslt::addCharacter);
         source.getCategories().forEach(rslt::addCategory);
