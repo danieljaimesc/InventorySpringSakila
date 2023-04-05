@@ -16,5 +16,4 @@ public class NewsDTO {
     private List<CharacterDTO> characters;
     private List<Category> categories;
     private List<Language> languages;
-
 }

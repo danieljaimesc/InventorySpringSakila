@@ -12,6 +12,7 @@ public enum Rating {
     ADULTS_ONLY("NC-17");
 
     public static final Map<String, Rating> VALID_VALUES = new HashMap<>();
+
     static {
         Arrays.stream(Rating.values()).forEach(item -> VALID_VALUES.put(item.value, item));
     }
