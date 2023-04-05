@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-class InventoryRepositoryTest {
+class BaseRepositoryTest {
 
     @BeforeEach
     void setUp() {
@@ -16,6 +16,7 @@ class InventoryRepositoryTest {
         void findByLastUpdateGreaterThanEqualOrderByLastUpdate() {
         }
     }
+
     @Nested
     class KO {
         @Test
