@@ -1,13 +1,14 @@
 package com.springsakila.application;
 
-import com.springsakila.domain.contracts.repositories.CategoryRepository;
-import com.springsakila.domain.contracts.repositories.CharacterRepository;
-import com.springsakila.domain.contracts.repositories.FilmRepository;
-import com.springsakila.domain.contracts.repositories.LanguageRepository;
-import com.springsakila.domain.entities.Category;
-import com.springsakila.domain.entities.Language;
-import com.springsakila.infrastructure.dto.CharacterDTO;
-import com.springsakila.infrastructure.dto.FilmEditDTO;
+import com.springsakila.inventory.application.CatalogService;
+import com.springsakila.inventory.domain.contracts.repositories.CategoryRepository;
+import com.springsakila.inventory.domain.contracts.repositories.CharacterRepository;
+import com.springsakila.inventory.domain.contracts.repositories.FilmRepository;
+import com.springsakila.inventory.domain.contracts.repositories.LanguageRepository;
+import com.springsakila.inventory.domain.entities.Category;
+import com.springsakila.inventory.domain.entities.Language;
+import com.springsakila.inventory.infrastructure.dto.CharacterDTO;
+import com.springsakila.inventory.infrastructure.dto.FilmEditDTO;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
