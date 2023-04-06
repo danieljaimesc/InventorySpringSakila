@@ -1,5 +1,6 @@
 package com.springsakila.inventory.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springsakila.inventory.domain.core.entities.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -27,6 +28,7 @@ public class Category extends EntityBase<Category> implements Serializable {
     private int categoryId;
 
     @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+    @JsonIgnore
     private Timestamp lastUpdate;
 
     @Column(nullable = false, length = 25)
@@ -34,6 +36,7 @@ public class Category extends EntityBase<Category> implements Serializable {
 
     //bidirectional many-to-one association to FilmCategory
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private List<FilmCategory> filmCategories;
 
     protected Category() {

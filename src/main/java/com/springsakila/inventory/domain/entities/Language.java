@@ -1,5 +1,6 @@
 package com.springsakila.inventory.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.springsakila.inventory.domain.core.entities.EntityBase;
 import jakarta.persistence.*;
 
@@ -25,6 +26,7 @@ public class Language extends EntityBase<Language> implements Serializable {
     private int languageId;
 
     @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+    @JsonIgnore
     private Timestamp lastUpdate;
 
     @Column(nullable = false, length = 20)
@@ -32,10 +34,12 @@ public class Language extends EntityBase<Language> implements Serializable {
 
     //bidirectional many-to-one association to Film
     @OneToMany(mappedBy = "language")
+    @JsonIgnore
     private List<Film> films;
 
     //bidirectional many-to-one association to Film
     @OneToMany(mappedBy = "languageVO")
+    @JsonIgnore
     private List<Film> filmsVO;
 
     public Language() {
