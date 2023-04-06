@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -25,13 +26,13 @@ class CatalogServiceTest {
     @Autowired
     private CatalogService catalogService;
 
-    @Autowired
+    @MockBean
     private FilmRepository filmRepository;
-    @Autowired
+    @MockBean
     private CharacterRepository characterRepository;
-    @Autowired
+    @MockBean
     private CategoryRepository categoryRepository;
-    @Autowired
+    @MockBean
     private LanguageRepository languageRepository;
 
 
