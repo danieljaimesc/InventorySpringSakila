@@ -31,7 +31,7 @@ public class Category extends EntityBase<Category> implements Serializable {
     @JsonIgnore
     private Timestamp lastUpdate;
 
-    @Column(nullable = false, length = 25)
+    @Column(nullable = false, length = 25, unique = true)
     private String name;
 
     //bidirectional many-to-one association to FilmCategory

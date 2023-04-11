@@ -29,7 +29,7 @@ public class Language extends EntityBase<Language> implements Serializable {
     @JsonIgnore
     private Timestamp lastUpdate;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String name;
 
     //bidirectional many-to-one association to Film

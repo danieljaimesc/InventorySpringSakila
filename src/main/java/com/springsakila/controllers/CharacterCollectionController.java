@@ -26,7 +26,7 @@ public class CharacterCollectionController {
     }
 
     @GetMapping(params = "page")
-    public Page<CharacterDTO> getAll(Pageable pageable){
+    public Page<CharacterDTO> getAll(Pageable pageable) {
         return characterService.getByProjection(pageable, CharacterDTO.class);
     }
 }
