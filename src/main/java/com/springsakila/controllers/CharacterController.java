@@ -1,7 +1,9 @@
 package com.springsakila.controllers;
 
+import com.springsakila.inventory.domain.entities.Character;
 import com.springsakila.inventory.domain.services.CharacterServiceImpl;
 import com.springsakila.inventory.infrastructure.dto.CharacterDTO;
+import com.springsakila.inventory.infrastructure.dto.FilmShortDTO;
 import com.springsakila.inventory.shared.exceptions.BadRequestException;
 import com.springsakila.inventory.shared.exceptions.DuplicateKeyException;
 import com.springsakila.inventory.shared.exceptions.InvalidDataException;
@@ -9,6 +11,9 @@ import com.springsakila.inventory.shared.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/character")
@@ -49,5 +54,10 @@ public class CharacterController {
         characterService.deleteById(id);
     }
 
-
+    @GetMapping("/{id}/films")
+    public List<FilmShortDTO> getFilms(@PathVariable int id) throws NotFoundException {
+        Optional<Character> character = characterService.getOne(id);
+        if (character.isEmpty()) throw new NotFoundException();
+        return character.get().getFilmCharacters().stream().map(item -> FilmShortDTO.from(item.getFilm())).toList();
+    }
 }

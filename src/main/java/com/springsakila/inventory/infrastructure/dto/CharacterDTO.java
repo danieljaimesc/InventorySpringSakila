@@ -8,9 +8,9 @@ import lombok.Value;
 public class CharacterDTO {
     @JsonProperty("id")
     private int characterId;
-    @JsonProperty("nombre")
+    @JsonProperty("firstName")
     private String firstName;
-    @JsonProperty("apellidos")
+    @JsonProperty("lastName")
     private String lastName;
 
     public static CharacterDTO from(Character target) {
