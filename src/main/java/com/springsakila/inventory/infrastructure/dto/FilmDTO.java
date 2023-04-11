@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FilmEditDTO {
+public class FilmDTO {
     private int filmId;
     private String description;
     private int length;
@@ -39,8 +39,8 @@ public class FilmEditDTO {
     private List<Integer> characters = new ArrayList<>();
     private List<Integer> categories = new ArrayList<>();
 
-    public static FilmEditDTO from(Film source) {
-        return new FilmEditDTO(
+    public static FilmDTO from(Film source) {
+        return new FilmDTO(
                 source.getFilmId(),
                 source.getDescription(),
                 source.getLength(),
@@ -59,7 +59,7 @@ public class FilmEditDTO {
         );
     }
 
-    public static Film from(FilmEditDTO source) {
+    public static Film from(FilmDTO source) {
         Film rslt = new Film(
                 source.getFilmId(),
                 source.getTitle(),
