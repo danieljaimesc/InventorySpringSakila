@@ -28,16 +28,14 @@ public class CharacterController {
         return CharacterDTO.from(character.get());
     }
 
-    //Create record if not exist and if exist update record
+    //Create record if not exist and if exist update it
     @PostMapping()
     public CharacterDTO postCreate(@RequestBody CharacterDTO characterDTO) throws InvalidDataException,
             DuplicateKeyException, BadRequestException, NotFoundException {
         CharacterDTO characterResult;
-        if (characterService.getOne(characterDTO.getCharacterId()).isPresent()) {
+        if (characterService.getOne(characterDTO.getCharacterId()).isPresent())
             characterResult = update(characterDTO.getCharacterId(), characterDTO);
-        } else {
-            characterResult = CharacterDTO.from(characterService.add(CharacterDTO.from(characterDTO)));
-        }
+        else characterResult = CharacterDTO.from(characterService.add(CharacterDTO.from(characterDTO)));
         return characterResult;
     }
 
@@ -55,7 +53,7 @@ public class CharacterController {
     }
 
     @GetMapping("/{id}/films")
-    public List<FilmShortDTO> getFilms(@PathVariable int id) throws NotFoundException {
+    public List<FilmShortDTO> getFilmList(@PathVariable int id) throws NotFoundException {
         Optional<Character> character = characterService.getOne(id);
         if (character.isEmpty()) throw new NotFoundException();
         return character.get().getFilmCharacters().stream().map(item -> FilmShortDTO.from(item.getFilm())).toList();
