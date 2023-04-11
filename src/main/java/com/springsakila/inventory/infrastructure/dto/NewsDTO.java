@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewsDTO {
-    private List<FilmEditDTO> films;
+    private List<FilmDTO> films;
     private List<CharacterDTO> characters;
     private List<Category> categories;
     private List<Language> languages;

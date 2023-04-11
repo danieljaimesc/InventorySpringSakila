@@ -8,7 +8,7 @@ import com.springsakila.inventory.domain.contracts.repositories.LanguageReposito
 import com.springsakila.inventory.domain.entities.Category;
 import com.springsakila.inventory.domain.entities.Language;
 import com.springsakila.inventory.infrastructure.dto.CharacterDTO;
-import com.springsakila.inventory.infrastructure.dto.FilmEditDTO;
+import com.springsakila.inventory.infrastructure.dto.FilmDTO;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +42,15 @@ class CatalogServiceTest {
         @Test
         void testNews_ReturnPropertiesAndNewsOfEachServiceAreEquals() {
             Timestamp date = null;
-            List<FilmEditDTO> filmEditDTOList =
-                    filmRepository.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date).stream().map(FilmEditDTO::from).toList();
+            List<FilmDTO> filmDTOList =
+                    filmRepository.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date).stream().map(FilmDTO::from).toList();
             List<CharacterDTO> characterDTOList =
                     characterRepository.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date).stream().map(CharacterDTO::from).toList();
             List<Category> categoryList = categoryRepository.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date);
             List<Language> languageList = languageRepository.findByLastUpdateGreaterThanEqualOrderByLastUpdate(date);
             var newsDTO = catalogService.news(date);
             assertAll("Verify NewsDTO properties and list of each Repository",
-                    () -> assertEquals(filmEditDTOList, newsDTO.getFilms()),
+                    () -> assertEquals(filmDTOList, newsDTO.getFilms()),
                     () -> assertEquals(characterDTOList, newsDTO.getCharacters()),
                     () -> assertEquals(categoryList, newsDTO.getCategories()),
                     () -> assertEquals(languageList, newsDTO.getLanguages()));
