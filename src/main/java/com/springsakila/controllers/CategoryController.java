@@ -27,7 +27,7 @@ public class CategoryController {
         return category.get();
     }
 
-    @PostMapping("/category/{id}")
+    @PostMapping("/category")
     public Category postCreate(@RequestBody Category category) throws InvalidDataException, DuplicateKeyException,
             BadRequestException, NotFoundException {
         Category categoryResult;
