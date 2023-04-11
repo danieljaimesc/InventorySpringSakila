@@ -3,9 +3,9 @@ package com.springsakila.inventory.domain.services;
 import com.springsakila.inventory.domain.contracts.repositories.LanguageRepository;
 import com.springsakila.inventory.domain.contracts.services.LanguageService;
 import com.springsakila.inventory.domain.entities.Language;
-import com.springsakila.shared.exceptions.DuplicateKeyException;
-import com.springsakila.shared.exceptions.InvalidDataException;
-import com.springsakila.shared.exceptions.NotFoundException;
+import com.springsakila.inventory.shared.exceptions.DuplicateKeyException;
+import com.springsakila.inventory.shared.exceptions.InvalidDataException;
+import com.springsakila.inventory.shared.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

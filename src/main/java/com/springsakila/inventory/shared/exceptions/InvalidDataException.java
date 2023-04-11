@@ -1,4 +1,4 @@
-package com.springsakila.shared.exceptions;
+package com.springsakila.inventory.shared.exceptions;
 
 import java.io.Serial;
 import java.util.Map;

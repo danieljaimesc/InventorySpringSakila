@@ -1,8 +1,8 @@
 package com.springsakila.inventory.domain.core.contracts.services;
 
-import com.springsakila.shared.exceptions.DuplicateKeyException;
-import com.springsakila.shared.exceptions.InvalidDataException;
-import com.springsakila.shared.exceptions.NotFoundException;
+import com.springsakila.inventory.shared.exceptions.DuplicateKeyException;
+import com.springsakila.inventory.shared.exceptions.InvalidDataException;
+import com.springsakila.inventory.shared.exceptions.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;

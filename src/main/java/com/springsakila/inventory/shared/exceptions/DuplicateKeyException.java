@@ -1,4 +1,4 @@
-package com.springsakila.shared.exceptions;
+package com.springsakila.inventory.shared.exceptions;
 
 public class DuplicateKeyException extends Exception {
     private static final long serialVersionUID = 1L;
