@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -52,10 +51,8 @@ public class FilmDTO {
                 source.getTitle(),
                 source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
                 source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
-                source.getCharacters().stream().map(Character::getCharacterId)
-                        .collect(Collectors.toList()),
-                source.getCategories().stream().map(Category::getCategoryId)
-                        .collect(Collectors.toList())
+                source.getCharacters().stream().map(Character::getCharacterId).toList(),
+                source.getCategories().stream().map(Category::getCategoryId).toList()
         );
     }
 
